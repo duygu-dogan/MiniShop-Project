@@ -1,0 +1,289 @@
+﻿@model List<ProductViewModel>
+@await Component.InvokeAsync("Categories")
+
+<!-- Product Section Begin -->
+<section class="product spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-4">
+                <div class="section-title">
+                    <h4>Ürünler</h4>
+                </div>
+            </div>
+            @* <div class="col-lg-8 col-md-8">
+                <ul class="filter__controls">
+                    <li class="active" data-filter="*">All</li>
+                    <li data-filter=".women">Women’s</li>
+                    <li data-filter=".men">Men’s</li>
+                    <li data-filter=".kid">Kid’s</li>
+                    <li data-filter=".accessories">Accessories</li>
+                    <li data-filter=".cosmetic">Cosmetics</li>
+                </ul>
+            </div> *@
+        </div>
+        <div class="row property__gallery">
+            @foreach(var p in Model)
+            {
+                <div class="col-lg-3 col-md-4 col-sm-6 mix women">
+                    <div class="product__item">
+                        <div class="product__item__pic set-bg" data-setbg="/images/products/@p.ImageUrl">
+                            <div class="label new">Yeni</div>
+                            <ul class="product__hover">
+                                <li><a href="/images/products/@p.ImageUrl" class="image-popup"><span class="arrow_expand"></span></a></li>
+                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                                <li>
+                                    <form
+                                    asp-area=""
+                                    asp-controller="ShoppingCart"
+                                    asp-action="AddToCart"
+                                    >
+                                        <input type="hidden" name="productId" value="@p.Id" />
+                                        <input type="hidden" name="quantity" value="1" />
+
+                                        <button style="border: none; background-color:transparent" type="submit"> <a> <span class="icon_bag_alt"></span> </a></button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="product__item__text">
+                            <h6><a href="#">@p.Name</a></h6>
+                            <div class="rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <div class="product__price">@($"{p.Price:C0}")</div>
+                        </div>
+                    </div>
+                </div>
+            }
+            
+        </div>
+    </div>
+</section>
+<!-- Product Section End -->
+
+<!-- Banner Section Begin -->
+<section class="banner set-bg" data-setbg="/ui/img/banner/banner-1.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-7 col-lg-8 m-auto">
+                <div class="banner__slider owl-carousel">
+                    <div class="banner__item">
+                        <div class="banner__text">
+                            <span>Elektronik Esya Koleksiyonu</span>
+                            <h2 class="display-4">IPhone 14 Pro</h2>
+                            <a href="#">Alışverişe Başla</a>
+                        </div>
+                    </div>
+                    <div class="banner__item">
+                        <div class="banner__text">
+                            <span>Elektronik Esya Koleksiyonu</span>
+                            <h2 class="display-4">Xiaomi Airfryer</h2>
+                            <a href="#">Alışverişe Başla</a>
+                        </div>
+                    </div>
+                    <div class="banner__item">
+                        <div class="banner__text">
+                            <span>Elektronik Esya Koleksiyonu</span>
+                            <h2 class="display-4">LG QLED Televizyon</h2>
+                            <a href="#">Alışverişe Başla</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Banner Section End -->
+
+<!-- Trend Section Begin -->
+<section class="trend spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <div class="trend__content">
+                    <div class="section-title">
+                        <h4>Trendler</h4>
+                    </div>
+                    @for (int i = 0; i < 3; i++)
+                    {
+                        <div class="trend__item">
+                            <div class="trend__item__pic" style="width:90px; height:90px; background-image: url('/images/products/@Model[i].ImageUrl');
+                                        background-size: contain; background-repeat: no-repeat;">
+                            </div>
+                            <div class="trend__item__text">
+                                <h6>@Model[i].Name</h6>
+                                <div class="rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                                <div class="product__price">@($"{Model[i].Price:C0}")</div>
+                            </div>
+                        </div>
+
+                    }
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <div class="trend__content">
+                    <div class="section-title">
+                        <h4>En Çok Satanlar</h4>
+                    </div>
+                    @for (int i = 3; i < 6; i++)
+                    {
+                        <div class="trend__item">
+                            <div class="trend__item__pic" style="width:90px; height:90px; background-image: url('/images/products/@Model[i].ImageUrl');
+                                        background-size: contain; background-repeat: no-repeat;">
+                            </div>
+                            <div class="trend__item__text">
+                                <h6>@Model[i].Name</h6>
+                                <div class="rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                                <div class="product__price">@($"{Model[i].Price:C0}")</div>
+                            </div>
+                        </div>
+
+                    }
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <div class="trend__content">
+                    <div class="section-title">
+                        <h4>Bunlara Gözat</h4>
+                    </div>
+                    @for (int i = 6; i < 9; i++)
+                    {
+                        <div class="trend__item">
+                            <div class="trend__item__pic" style="width:90px; height:90px; background-image: url('/images/products/@Model[i].ImageUrl');
+                                        background-size: contain; background-repeat: no-repeat;">
+                            </div>
+                            <div class="trend__item__text">
+                                <h6>@Model[i].Name</h6>
+                                <div class="rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                                <div class="product__price">@($"{Model[i].Price:C0}")</div>
+                            </div>
+                        </div>
+
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Trend Section End -->
+
+<!-- Discount Section Begin -->
+<section class="discount">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 p-0">
+                <div class="discount__pic">
+                    <img src="/ui/img/discount.jpg" alt="">
+                </div>
+            </div>
+            <div class="col-lg-6 p-0">
+                <div class="discount__text">
+                    <div class="discount__text__title">
+                        <span>İndirimler</span>
+                        <h2>Bahar 2024</h2>
+                        <h5><span>İndirim</span> 50%</h5>
+                    </div>
+                    <div class="discount__countdown" id="countdown-time">
+                        <div class="countdown__item">
+                            <span>22</span>
+                            <p>Gün</p>
+                        </div>
+                        <div class="countdown__item">
+                            <span>18</span>
+                            <p>Saat</p>
+                        </div>
+                        <div class="countdown__item">
+                            <span>46</span>
+                            <p>Dakika</p>
+                        </div>
+                        <div class="countdown__item">
+                            <span>05</span>
+                            <p>Saniye</p>
+                        </div>
+                    </div>
+                    <a href="#">Alışverişe Başla</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Discount Section End -->
+
+<!-- Services Section Begin -->
+<section class="services spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="services__item">
+                    <i class="fa fa-car"></i>
+                    <h6>Ücretsiz Kargo</h6>
+                    <p>100&#8378 üzerindeki tüm siparişlerde kargo ücretsiz!</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="services__item">
+                    <i class="fa fa-money"></i>
+                    <h6>Para İade Garantisi</h6>
+                    <p>Bir sorunla karşılaşırsanız para iadesi garantisi!</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="services__item">
+                    <i class="fa fa-support"></i>
+                    <h6>24/7 Canlı Destek</h6>
+                    <p>Her türlü sorununuzda canlı desteğimize ulaşabilirsiniz.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="services__item">
+                    <i class="fa fa-headphones"></i>
+                    <h6>Güvenli Ödeme</h6>
+                    <p>Bizim için önemlisiniz, 100% güvenli ödeme.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Services Section End -->
+
+<!-- Instagram Begin -->
+<div class="instagram">
+    <div class="container-fluid">
+        <div class="row">
+            @for(int i=1; i <= 6; i++)
+            {
+                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+                    <div class="instagram__item set-bg" style="background-size:contain" data-setbg=@($"/ui/img/instagram/insta-{i}.jpg")>
+                        <div class="instagram__text">
+                            <i class="fa fa-instagram"></i>
+                            <a href="#"></a>
+                        </div>
+                    </div>
+                </div>
+            }          
+        </div>
+    </div>
+</div>
+<!-- Instagram End -->

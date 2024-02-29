@@ -1,0 +1,82 @@
+﻿@model AddCategoryViewModel
+
+ <!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="d-flex justify-content-between mb-2 align-content-center">
+                <div class="col-10 mx-auto">
+                    <h1>Yeni Kategori</h1>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-10 mx-auto">
+                    <form
+                        asp-area="Admin"
+                        asp-controller="Category"
+                        asp-action="Create"
+                        method="post">
+                        <!--Kategori Bilgileri-->
+                        <div class="card card-success">
+                            <div class="card-header">
+                                <h3 class="card-title">Kategori Bilgileri</h3>
+                            </div>
+                            <div class="card-body">
+
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <div class="form-group">
+                                            <label asp-for="Name"></label>
+                                            <input asp-for="Name" type="text" class="form-control" placeholder="Kategori adını giriniz..."/>
+                                            <span class="text-danger" asp-validation-for="Name"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label>Aktiflik Durumu</label>
+                                        <div class="icheck-primary">
+                                            <input asp-for="IsActive" type="checkbox" />
+                                            <label asp-for="IsActive" for="IsActive"></label>
+                                            <span class="text-danger" asp-validation-for="IsActive"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <label asp-for="Description"></label>
+                                        <textarea asp-for="Description" ></textarea>
+                                        <span asp-validation-for="Description" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Kategori Ekle Butonu -->
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-primary">Kaydet</button>
+                            <a asp-area="Admin" asp-controller="Category" asp-action="Index" class="btn btn-secondary">Vazgeç</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<!-- /.content-wrapper -->
+
+
+@section Styles{
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="~/admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- summernote -->
+    <link rel="stylesheet" href="~/admin/plugins/summernote/summernote-bs4.min.css">
+}
+
+@section Scripts{
+    <!-- dropzonejs -->
+    <script src="~/admin/plugins/dropzone/min/dropzone.min.js"></script>
+    @await Html.PartialAsync("_SummerNotePartial")
+}

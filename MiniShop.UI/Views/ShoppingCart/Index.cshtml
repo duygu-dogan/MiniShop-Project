@@ -1,0 +1,158 @@
+﻿@model ShoppingCartViewModel
+@{
+    var items = Model.ShoppingCartItems;
+}
+<!-- Shop Cart Section Begin -->
+<section class="shop-cart spad">
+    <div class="container">
+        @if (items.Count == 0)
+        {
+            <div style="height: 150px">
+                <div class="alert alert-warning text-center mt-5 mb-5 p-4">Sepetinizde ürün bulunmamaktadır.</div>
+            </div>
+        }
+        else
+        {
+        <div class="row">
+                <div class="col-lg-12">
+                    <div class="shop__cart__table"> 
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Ürün</th>
+                                    <th>Fiyat</th>
+                                    <th>Adet</th>
+                                    <th>Tutar</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var sc in items)
+                                {
+                                    <tr>
+                                        <td class="cart__product__item">
+                                            <img src="images/products/@sc.ProductImageUrl" alt="" style="height: 100px">
+                                            <div class="cart__product__item__title">
+                                                <h6>@sc.ProductName</h6>
+                                                <div class="rating">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="cart__price">@($"{sc.ProductPrice:C0}")</td>
+                                        <td class="cart__quantity">
+                                            <div class="pro-qty">
+                                                <form id="form_qty_@sc.Id"
+                                                asp-area=""
+                                                asp-controller="ShoppingCart"
+                                                asp-action="ChangeQuantity"
+                                                method="post">
+                                                    <input type="hidden" name="Id" value="@sc.Id" />
+                                                    <span onclick="decrement(quantity_@sc.Id); document.getElementById('form_qty_@sc.Id').submit()" id="dec_@sc.Id" class="dec qtybtn">-</span>
+                                                    <input name="quantity" id="quantity_@sc.Id" type="text" value=@sc.Quantity>
+                                                    <span onclick="increment(quantity_@sc.Id); document.getElementById('form_qty_@sc.Id').submit()" id="inc_@sc.Id" class="inc qtybtn">+</span>
+                                                </form>
+
+                                                @* <span onclick="decrement(quantity_@sc.Id);" class="dec qtybtn">-</span>
+                                        <input id="quantity_@sc.Id" type="text" value=@sc.Quantity>
+                                        <span onclick="increment(quantity_@sc.Id);" class="inc qtybtn">+</span> *@
+                                            </div>
+                                        </td>
+                                        @{
+                                            var total = @sc.Quantity * @sc.ProductPrice;
+                                        }
+                                        <td class="cart__total">@($"{total:C0}")</td>
+                                        <td class="cart__close">
+                                            <a asp-area=""
+                                            asp-controller="ShoppingCart"
+                                            asp-action="DeleteFromShoppingCart"
+                                            asp-route-id="@sc.Id"><span class="icon_close"></span></a>
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        <div class="row ">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="cart__btn">
+                    <a
+                    asp-area=""
+                    asp-controller="Home"
+                    asp-action="Index"
+                    >Alışverişe Devam Et</a>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="cart__btn update__btn">
+                    <a
+                    asp-area=""
+                    asp-controller="ShoppingCart"
+                    asp-action="ClearFromShoppingCart"
+                    asp-route-id="@Model.Id">
+                        <span class="icon_trash"></span>Sepeti Boşalt
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="discount__content">
+                    <h6>İndirim Kodları</h6>
+                    <form action="#">
+                        <input type="text" placeholder="Kupon kodunuzu giriniz">
+                        <button type="submit" class="site-btn">Uygula</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-4 offset-lg-2">
+                <div class="cart__total__procced">
+                    <h6>Sepet Toplamı</h6>
+                    <ul>
+                        @{
+                            var cartSubTotal = Model.TotalPrice() / 1.2m;
+                            var cartTotal = Model.TotalPrice(); //varsayılan vergi oranı
+                        }
+                        <li>KDV Hariç <span>@($"{cartSubTotal:C0}")</span></li>
+                    <li>Toplam <span>@($"{cartTotal:C0}")</span></li>
+                </ul>
+                <a
+                    asp-area=""
+                    asp-controller="Order"
+                    asp-action="Checkout"
+                    class="primary-btn">Ödeme Yap</a>
+            </div>
+        </div>
+    </div>
+        }
+    </div>
+</section>
+<!-- Shop Cart Section End -->
+
+@section Scripts{
+    <script>
+        function decrement(element) { 
+            let qty = element.value;
+            if (qty >  1) {
+                qty -= 1;
+            } else 
+            {
+                qty = 1;
+            }
+            element.value = qty;
+        }
+        function increment(element) {
+            let qty = Number(element.value);
+            qty += 1;
+            element.value = qty;
+        }
+    </script>
+}

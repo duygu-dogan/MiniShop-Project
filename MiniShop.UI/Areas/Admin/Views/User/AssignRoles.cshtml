@@ -1,0 +1,68 @@
+﻿@model UserRolesViewModel
+ <!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <div class="container col-sm-10 mx-auto">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div>
+            <div class="d-flex justify-content-between mb-2">
+                <div>
+                    <h1 class="font-weight-bold">Kullanıcı Rol Atama</h1>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <section class="content">
+        <div class="card card-success">
+                <div class="card-header">
+                    <h5>Kullanıcı Bilgileri</h5>
+                </div>
+            <div class="row">
+                <div class="ml-3">
+                    <div class="card-body">
+                        <h5 class="display-6 text-primary" >@Model.Name</h5>
+                   <label style="font-size:18px">Kullanıcı Adı: </label>
+                   <span>@Model.UserName</span>
+                   <br />
+                   <label style="font-size:18px">Roller: </label>
+                   <form
+                    asp-area="Admin"
+                    asp-controller="User"
+                    asp-action="AssignRoles"
+                    method="post"
+                   >
+                   <div class="text-danger" asp-validation-summary="All"></div>
+                   <input type="hidden" asp-for="@Model.Id" />
+                        @for (int i = 0; i < Model.Roles.Count; i++)
+                    {
+                        <div class="icheck-primary ml-3">
+                        <input asp-for="@Model.Roles[i].IsAssigned" />
+                        <label asp-for="@Model.Roles[i].IsAssigned">@Model.Roles[i].RoleName</label>
+                                <input type="hidden" asp-for="@Model.Roles[i].RoleId" />
+                                <input type="hidden" asp-for="@Model.Roles[i].RoleName" />
+                        </div>
+                    }
+                    <div class="mt-4">
+                        <button type="submit" class="btn btn-success">Değişiklikleri Kaydet</button>
+                        <a 
+                            asp-controller="User"
+                            asp-action="Index"
+                            type="submit" class="btn btn-secondary">Vazgeç</a>
+                    </div>
+                    </form>
+                </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</div>
+
+
+@section Styles{
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="~/admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- summernote -->
+    <link rel="stylesheet" href="~/admin/plugins/summernote/summernote-bs4.min.css">
+}

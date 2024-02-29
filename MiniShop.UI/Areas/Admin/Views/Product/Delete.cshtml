@@ -1,0 +1,65 @@
+﻿@model DeleteProductViewModel
+ <!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="d-flex justify-content-between mb-2">
+                <div class="col-10 mx-auto">
+                    <h1>Ürün Silme</h1>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-10 mx-auto">
+                    <!--Ürün Bilgileri-->
+                    <div class="card card-success">
+                        <div class="card-header">
+                            <h3 class="card-title">Ürün Bilgileri</h3>
+                        </div>
+                        <div class="card-body">
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                    <div>
+                        <label>Id:</label>
+                        <span>@Model.Id</span>
+                    </div>
+                    <div>
+                        <label>Ürün:</label>
+                        <span>@Model.Name</span>
+                    </div>
+                    <div>
+                        <label>Fiyat:</label>
+                        <span>@($"{Model.Price:C0}")</span>
+                    </div>
+                    <div>
+                        <label>Oluşturulma Tarihi:</label>
+                        <span>@Model.CreatedDate</span>
+                    </div>
+                    <div>
+                        <label>Son Güncelleme Tarihi:</label>
+                        <span>@Model.ModifiedDate</span>
+                    </div>
+                    </div>
+                    <div class="col-sm-5 d-flex align-content-center justify-content-end mr-5">
+                        <img src="/images/products/@Model.ImageUrl" style="width:70px; height: 145px" />
+                    </div>
+                    </div>
+                        </div>
+             <!-- Silme Butonları -->
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <a asp-area="Admin" asp-controller="Product" asp-action="Index" class="btn btn-info">Vazgeç</a>
+                        <a asp-area="Admin" asp-controller="Product" asp-action="HardDelete" asp-route-id="@Model.Id" class="btn btn-danger">Kalıcı Olarak Sil</a>
+                        <a asp-area="Admin" asp-controller="Product" asp-action="SoftDelete" asp-route-id="@Model.Id" class="btn btn-warning">Çöp Kutusuna Gönder</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+

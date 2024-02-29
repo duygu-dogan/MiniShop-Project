@@ -1,0 +1,61 @@
+﻿@model DeleteUserViewModel
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="d-flex justify-content-between mb-2">
+                <div class="col-10 mx-auto">
+                    <h1>Kullanıcı Silme</h1>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-10 mx-auto">
+                    <!--Kullanıcı Bilgileri-->
+                    <div class="card card-success">
+                        <div class="card-header">
+                            <h3 class="card-title">Kullanıcı Bilgileri</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div>
+                                        <label>Id: </label>
+                                        <span>@Model.Id</span>
+                                    </div>
+                                    <div>
+                                        <label>Kullanıcı Adı: </label>
+                                        <span>@Model.Name</span>
+                                    </div>
+                                    <div>
+                                        <label>Kullanıcı Username: </label>
+                                        <span>@Model.UserName</span>
+                                    </div>
+                                    <div>
+                                        <label>Roller: </label>
+                                            @foreach(var role in Model.Roles)
+                                            {
+                                                <span>@role.RoleName</span>
+                                            }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Silme Butonları -->
+
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <a asp-area="Admin" asp-controller="User" asp-action="Index" class="btn btn-info">Vazgeç</a>
+                            <a asp-area="Admin" asp-controller="User" asp-action="HardDelete" asp-route-id="@Model.Id" class="btn btn-danger">Kalıcı Olarak Sil</a>
+                            <a asp-area="Admin" asp-controller="User" asp-action="SoftDelete" asp-route-id="@Model.Id" class="btn btn-warning">Çöp Kutusuna Gönder</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+</div>
+
